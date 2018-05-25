@@ -17,6 +17,10 @@
   </div>
 </template>
 
+<style lang="scss">
+@import "../assets/buefy-form-generator.scss";
+</style>
+
 <style lang="css">
 @import "~/node_modules/mdi/css/materialdesignicons.min.css";
 @import "~/node_modules/buefy/lib/buefy.min.css";

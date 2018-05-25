@@ -134,10 +134,6 @@
 	</div>
 </template>
 
-<style lang="scss">
-@import "../assets/buefy-form-generator.scss";
-</style>
-
 <script>
 import Vue from 'vue'
 
