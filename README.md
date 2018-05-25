@@ -1,0 +1,1 @@
+buefy-form-generator
