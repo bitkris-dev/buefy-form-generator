@@ -1,6 +1,4 @@
 {
-  "presets": [
-    ["env", { "modules": false }],
-    "stage-3"
-  ]
+  "presets": ["es2015"],
+  "plugins": ["babel-plugin-syntax-dynamic-import"]
 }

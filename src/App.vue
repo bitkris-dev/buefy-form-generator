@@ -18,7 +18,7 @@
 </template>
 
 <style lang="scss">
-@import "../assets/buefy-form-generator.scss";
+@import "./assets/buefy-form-generator.scss";
 </style>
 
 <style lang="css">
@@ -28,14 +28,11 @@
 
 <script>
 import Vue from 'vue'
-
 import Toast from './utils/buefy-toasts.js'
-
-import buefyFormGenerator from './components/buefy-form-generator.vue'
-Vue.component('buefyFormGenerator', buefyFormGenerator)
 
 export default {
   name: 'app',
+  components: { 'buefyFormGenerator': () => import('./components/buefy-form-generator.vue') },
   data () {
     return {
       schema: {},
@@ -44,7 +41,7 @@ export default {
   },
 	mounted () {
 		const SCHEMA = require('./schema-example.js').default.getSchema(this.data)
-		this.schema = SCHEMA.schema
+    this.schema = SCHEMA.schema
 	},
   methods: {
     changed (e) {
