@@ -78,6 +78,7 @@ export default {
 		dzLoad (url, keyName) {
 			this.canUpload = true
 			document.querySelector('#' + keyName + 'Dropzone .dz-default').classList.add('flex-vcenter')
+			let file = new File([""], keyName)
 
 			if (url) {
 				this.canUpload = false
@@ -90,7 +91,7 @@ export default {
 
 					this.$nextTick(a => { this.customPreview(url, keyName) })
 				})
-			}
+			} else this.$refs['dropzone'].manuallyAddFile(file, null)
 		},
 		dzMaxFiles (file, keyName) {
 			this.dzDelete()
