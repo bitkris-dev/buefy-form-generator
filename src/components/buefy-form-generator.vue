@@ -1,6 +1,6 @@
 <template>
 	<div class="columns is-multiline">
-		<template v-for="(input,key,index) in schema">
+		<template v-for="(input,key,index) in schema" v-if="(input.data.type === 'html' && input.data.html) || input.data.type !== 'html'">
 			<div class="column is-12" v-if="input.header">
 				<div>
 					<template v-if="index !== 0"><hr><br></template>
