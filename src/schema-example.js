@@ -8,15 +8,15 @@ export default {
 				text: {
 					header: { icon: 'format-text', text: 'Texts' },
 					appearance: { label: 'Text', icon: 'format-text', layout: 'column is-6' },
-					data: { value: DATA.name || '', cancelable: true, type: 'text', validate: 'required|min:3' }
+					data: { value: DATA.name || '', type: 'text', validate: 'required|min:3' }
 				},
 				textarea: {
 					appearance: { label: 'Textarea', layout: 'column is-12' },
-					data: { value: DATA.textarea || '', cancelable: true, type: 'textarea', validate: 'required|min:3' }
+					data: { value: DATA.textarea || '', type: 'textarea', validate: 'required|min:3' }
 				},
 				richtext: {
 					appearance: { label: 'Richtext', layout: 'column is-12' },
-					data: { value: DATA.richtext || '', cancelable: true, type: 'richtext', validate: 'required|min:3' }
+					data: { value: DATA.richtext || '', type: 'richtext', validate: 'required|min:3' }
 				},
 				html: {
 					header: { icon: 'format-text', text: 'Custom HTML' },
@@ -34,7 +34,7 @@ export default {
 				},
 				select: {
 					appearance: { label: 'Select', icon: 'format-text', layout: 'column is-12' },
-					data: { value: DATA.select || null, cancelable: true, type: 'select',
+					data: { value: DATA.select || null, type: 'select',
 						options: [
 							{ text: 'Option 1', value: 'option-1'},
 							{ text: 'Option 2', value: 'option-2'},
@@ -45,7 +45,7 @@ export default {
 				date: {
 					header: { icon: 'calendar-multiple', text: 'Date' },
 					appearance: { label: 'Date', icon: 'calendar-clock', layout: 'column is-6' },
-					data: { value: dateGen(DATA.date) || dateGen(new Date()), cancelable: true, type: 'date' }
+					data: { value: dateGen(DATA.date) || dateGen(new Date()), type: 'date' }
 				},
 				image: {
 					header: { icon: 'file-multiple', text: 'Files' },

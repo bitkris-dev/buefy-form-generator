@@ -16,7 +16,7 @@
 					<b-field
 					:class="(input.appearance.classField || '') + ' field-' + input.data.type"
 					:label="labelGen(input.data.type, input.appearance.label, input.data.options || null)">
-						<div>
+						<div style="position:relative">
 							<template v-if="input.data.type === 'html'">
 								<div v-html="input.data.html"></div>
 							</template>
@@ -28,17 +28,20 @@
 							<template v-else-if="inputTypes.indexOf(input.data.type) > -1">
 								<b-input
 								:name="key"
-								:type="input.data.type === 'phone' ? 'text' : input.data.type"
+								:type="(input.data.type === 'phone') ? 'text' : input.data.type"
 								:class="input.appearance.classInput || ''"
 								:icon="input.appearance.icon"
 								:readonly="input.data.readonly || false"
 								:disabled="input.data.disabled || false"
+								:step="input.data.step || false"
+								:min="input.data.min || false"
 								:placeholder="input.data.placeholder || input.appearance.label || ''"
 								v-model="input.data.value"
 								v-validate="input.data.validate || ''"
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
+								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'switch'">
@@ -93,6 +96,7 @@
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
+								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'dropzone'">
@@ -120,11 +124,6 @@
 						</div>
 					</b-field>
 
-					<button class="button is-danger"
-					v-if="cancelable(input)"
-					@click="schema[key].data.value = null; emitter($event, key, 'canceled')"
-					>Cancel</button>
-
 					<div class="v-error tc-red margin-top-xsmall">
 						<vv-error :for="key" />
 					</div>
@@ -133,6 +132,28 @@
 		</template>
 	</div>
 </template>
+
+<style lang="scss">
+.control {
+	& + .icon {
+		height: calc(100% - 2px);
+		position: absolute;
+		padding-left: 20px;
+		padding-right: 20px;
+		right: 2px;
+		top: 1px;
+		cursor: pointer;
+		color: grey;
+		border-left: 1px lightgrey solid;
+
+		&:hover { color: red; }
+		&:active {
+			transform: translateX(1px);
+			.mdi:before { transform: translateY(1px); }
+		}
+	}
+}
+</style>
 
 <script>
 import Vue from 'vue'
@@ -167,7 +188,7 @@ Vue.component(Message.name, Message)
 Vue.component(Icon.name, Icon)
 Vue.component(Loading.name, Loading)
 
-const vvConfig = { enableAutoClasses: true, locale: 'it', events: 'blur', errorBagName: 'vErrors' }
+const vvConfig = { enableAutoClasses: true, events: 'blur, change', errorBagName: 'vErrors' }
 Vue.use(VeeValidate, vvConfig)
 Vue.component('vv-error', ErrorComponent)
 
@@ -201,7 +222,8 @@ export default {
 
 				if (!val.noSend) {
 					let assign = val.value
-					if (val.type === 'date') assign = require('moment').utc(assign).format('DD/MM/YYYY')
+					if (val.type === 'number') assign = parseFloat(assign)
+					if (val.type === 'date') { assign = assign ? require('moment').utc(assign).format('DD/MM/YYYY') : null }
 					if (val.type === 'switch') assign = (assign === 'Yes')
 					schemaData[key] = assign
 				}
@@ -221,11 +243,6 @@ export default {
 			// save only once
 			if (!Object.keys(this.original_schema).length) this.original_schema = JSON.parse(JSON.stringify(schema))
 		},
-		cancelable (input) {
-			if (input && input.data) {
-				return (input.data.type !== 'html') && (input.data.type !== 'switch') && (input.data.type !== 'checkbox') && input.data.cancelable
-			} else return false
-		},
 		labelGen (type, sourceLabel, options) {
 			let label = null
 			let fileTypes = null
@@ -242,7 +259,7 @@ export default {
 			let valType = (typeof e)
 			let inputName = valType === 'string' ? e : e.target.getAttribute('name')
 
-			setTimeout(a => { this.$validator.validate(inputName, this.schema[inputName].data.value) }, 10)
+			setTimeout(a => { this.$validator.validate(inputName, this.schemaData[inputName]) }, 10)
 		},
 		validateAll () {
 			this.$validator.validateAll().then(res => {
