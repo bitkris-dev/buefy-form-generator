@@ -124,7 +124,7 @@
 						</div>
 					</b-field>
 
-					<div class="v-error tc-red margin-top-xsmall">
+					<div class="v-error tc-red margin-top-xsmall" v-if="vErrors.has(key)">
 						<vv-error :for="key" />
 					</div>
 				</div>
