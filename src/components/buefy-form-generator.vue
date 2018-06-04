@@ -99,6 +99,21 @@
 								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
+							<template v-else-if="input.data.type === 'time'">
+								<b-timepicker
+								:name="key"
+								:class="input.appearance.classInput || ''"
+								:icon="input.appearance.icon"
+								:placeholder="input.data.placeholder || input.appearance.label || ''"
+								:disabled="input.data.disabled || false"
+								v-model="input.data.value"
+								v-validate="input.data.validate"
+								:data-vv-as="input.appearance.label"
+								@input="emitter($event, key, 'changed')"
+								/>
+								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
+							</template>
+
 							<template v-else-if="input.data.type === 'dropzone'">
 								<dropzoneWrap
 								:keyName="key"

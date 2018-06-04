@@ -34,6 +34,7 @@ import quillEditor from './components/quillEditor.vue'
 import dropzoneWrap from './components/dropzoneWrap.vue'
 
 import Datepicker from 'buefy/src/components/datepicker/Datepicker.vue'
+import Timepicker from 'buefy/src/components/timepicker/Timepicker.vue'
 import Field from 'buefy/src/components/field/Field.vue'
 import Select from 'buefy/src/components/select/Select.vue'
 import Input from 'buefy/src/components/input/Input.vue'
@@ -51,6 +52,7 @@ Vue.component('quillEditor', quillEditor)
 Vue.component('dropzoneWrap', dropzoneWrap)
 
 Vue.component(Datepicker.name, Datepicker)
+Vue.component(Timepicker.name, Timepicker)
 Vue.component(Field.name, Field)
 Vue.component(Select.name, Select)
 Vue.component(Input.name, Input)

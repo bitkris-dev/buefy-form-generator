@@ -47,6 +47,11 @@ export default {
 					appearance: { label: 'Date', icon: 'calendar-clock', layout: 'column is-6' },
 					data: { value: dateGen(DATA.date) || dateGen(new Date()), type: 'date' }
 				},
+				time: {
+					header: { icon: 'calendar-multiple', text: 'Time' },
+					appearance: { label: 'Time', icon: 'clock', layout: 'column is-6' },
+					data: { value: null, type: 'time' }
+				},
 				image: {
 					header: { icon: 'file-multiple', text: 'Files' },
 					appearance: { label: 'Image', layout: 'column is-6' },
