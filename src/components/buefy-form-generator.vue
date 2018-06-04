@@ -156,45 +156,7 @@
 </style>
 
 <script>
-import Vue from 'vue'
-
-import quillEditor from './quillEditor.vue'
-import dropzoneWrap from './dropzoneWrap.vue'
-
-import Datepicker from 'buefy/src/components/datepicker/Datepicker.vue'
-import Field from 'buefy/src/components/field/Field.vue'
-import Select from 'buefy/src/components/select/Select.vue'
-import Input from 'buefy/src/components/input/Input.vue'
-import Checkbox from 'buefy/src/components/checkbox/Checkbox.vue'
-import Switch from 'buefy/src/components/switch/Switch.vue'
-import Message from 'buefy/src/components/message/Message.vue'
-import Icon from 'buefy/src/components/icon/Icon.vue'
-import Loading from 'buefy/src/components/loading/Loading.vue'
-
-import VeeValidate, { Validator, ErrorComponent } from 'vee-validate'
-
-import VueScrollTo from 'vue-scrollto'
-
-Vue.component('quillEditor', quillEditor)
-Vue.component('dropzoneWrap', dropzoneWrap)
-
-Vue.component(Datepicker.name, Datepicker)
-Vue.component(Field.name, Field)
-Vue.component(Select.name, Select)
-Vue.component(Input.name, Input)
-Vue.component(Checkbox.name, Checkbox)
-Vue.component(Switch.name, Switch)
-Vue.component(Message.name, Message)
-Vue.component(Icon.name, Icon)
-Vue.component(Loading.name, Loading)
-
-const vvConfig = { enableAutoClasses: true, events: 'blur, change', errorBagName: 'vErrors' }
-Vue.use(VeeValidate, vvConfig)
-Vue.component('vv-error', ErrorComponent)
-
-Vue.use(VueScrollTo)
-
-var PhoneNumber = require('awesome-phonenumber')
+const PhoneNumber = require('awesome-phonenumber')
 
 export default {
 	name: 'buefyFormGenerator',
