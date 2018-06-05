@@ -1,0 +1,79 @@
+.vue-dropzone {
+	&.dropzone {
+		background-color: lighten(lightgrey,12%);
+		border: 1px solid lighten(lightgrey,5%);
+		padding: 5px 20px;
+		border-radius: 2px;
+		cursor: pointer;
+
+		.dz-default {
+			border: 2px dashed lighten(lightgrey,2%);
+			border-radius: 4px;
+			padding: 20px;
+			min-height: 135px;
+			text-align: center;
+			display: flex;
+			align-content: center;
+			justify-content: center;
+		}
+
+		.dz-preview {
+			.dz-details { display: none; }
+
+			&.dz-image-preview { background-color: transparent; }
+
+			&:hover {
+				z-index: 10;
+				.dz-image {
+					img {
+						transform: scale(1);
+						filter: none;
+					}
+				}
+			}
+		}
+	}
+
+	&:hover {
+		background-color: grey;
+		border-color: lightgrey;
+
+		.dz-default {
+			border-color: lightgrey;
+			span, small { color: lightgrey !important; }
+			svg, svg * { fill: lightgrey !important; }
+		}
+	}
+
+	&.dz-max-files-reached:hover {
+		background-color: grey;
+		border-color: lightgrey;
+
+		.dz-default {
+			border-color: lightgrey;
+			span, small { color: lightgrey !important; }
+			svg, svg * { fill: lightgrey !important; }
+		}
+	}
+}
+
+.dropzone-previews {
+	padding: 5px 20px;
+	background-color: lighten(lightgrey,12%);
+	border: 1px solid lighten(lightgrey,5%);
+	border-radius: 2px;
+	min-height: 200px;
+
+	.dz-size, .dz-filename, .dz-success-mark, .dz-error-message, .dz-error-mark, .dz-progress { display: none; }
+
+	.dz-image {
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain;
+		width: 100%;
+		height: 200px;
+		display: block;
+
+		img { display: none; }
+	}
+}

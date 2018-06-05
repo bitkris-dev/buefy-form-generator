@@ -25,11 +25,6 @@ yarn add buefy-form-generator
 
 ``` bash
 import Vue from  'vue'
-import buefyFormGenerator from  'buefy-form-generator/src/components/buefy-form-generator.vue'
-
-# non-buefy components (in future I will try a more Buefy solution)
-import quillEditor from  './components/quillEditor.vue'
-import dropzoneWrap from  './components/dropzoneWrap.vue'
 
 # it's better to import components a-la-carte
 import Datepicker from  'buefy/src/components/datepicker/Datepicker.vue'
@@ -44,16 +39,15 @@ import Icon from  'buefy/src/components/icon/Icon.vue'
 import Loading from  'buefy/src/components/loading/Loading.vue'
 
 # this package already deals with all the validation through Vee-Validate
-import VeeValidate,  { Validator, ErrorComponent }  from  'vee-validate'
+import VeeValidate,  { ErrorComponent }  from  'vee-validate'
 
 # needed to scroll to the error
 import VueScrollTo from  'vue-scrollto'
 
-# install components
-Vue.component('buefyFormGenerator', buefyFormGenerator)
-Vue.component('quillEditor', quillEditor)
-Vue.component('dropzoneWrap', dropzoneWrap)
+# install buefy-form-generator
+Vue.component('buefyFormGenerator', require('buefy-form-generator'))
 
+# install components
 Vue.component(Datepicker.name, Datepicker)
 Vue.component(Timepicker.name, Timepicker)
 Vue.component(Field.name, Field)
@@ -77,6 +71,18 @@ Vue.use(VueScrollTo)
 
 ```
 
+Import its css:
+
+``` bash
+<style lang="css">
+[...]
+
+@import 'node_modules/buefy-form-generator/dist/bfg.css';
+
+[...]
+</style>
+```
+
 ## How to use
 
 This form generator parses a simple JSON schema to generate all what you need in a common form.
@@ -94,8 +100,8 @@ Create a JSON object for each input you want to create as follows:
 
 | Name | Type | Default | Description
 |--|--|--|--|
-|`header`|`{Object}`|`undefined`|Adds a `<h1 class="title is-5"></h1>` before the input. <br><br> Supported keys: <br>• **icon**: `{String}`  <br> • **text**: `{String}` |
-|`appearance`|`{Object}`|`undefined`|With this property, you can customize the input's look and layout. <br><br> Supported keys:<br> • **label**: `{String}`  <br> • **icon**: `{String}`  <br> • **layout**: `{String}`  <br>&nbsp;&nbsp; (add *here your CSS classes)* |
+|`header`|`{Object}`|`undefined`|Adds a `<h1 class="title is-5"></h1>` before the input. <br><br> Supported keys: <br>• **icon**: `{String}` <br> &nbsp;&nbsp; *(icon class name from [MDI](hhttps://materialdesignicons.com/) )*  <br> • **text**: `{String}` |
+|`appearance`|`{Object}`|`undefined`|With this property, you can customize the input's look and layout. <br><br> Supported keys:<br> • **label**: `{String}`  <br> • **icon**: `{String}` <br> &nbsp;&nbsp; *(icon class name from [MDI](hhttps://materialdesignicons.com/) )* <br> • **layout**: `{String}`  <br>&nbsp;&nbsp; (add *here your CSS classes)* |
 |`data`|`{Object}`|`undefined`|Configure the data properties, types and validation rules. <br><br> Supported keys: <br> • **value**: `any type`  <br>  &nbsp;&nbsp; (*use this for editable values, otherwise set to* `null` *for empty forms*.) <br> • **type**: `{String}`  <br>  &nbsp;&nbsp; (*can be one of the following values:*  `text`, `textarea`, `richtext`, `number`, `password`, `checkbox`, `switch`, `select`, `phone`, `date`, `time`, `dropzone`, `html`, `link`)<br> • **disabled**: `{Boolean}`<br> • **disabled**: `{Boolean}`<br> • **noSend**: `{Boolean}`<br>  &nbsp;&nbsp; (*If you want to show an input excluding it from the values passed via the* `@changed` *event. Best to use it with* **disabled**: `true`.) <br> • **validate**: `{String}` <br>  &nbsp;&nbsp; (*Insert your vee-validate validation rules. [Click this link](https://baianat.github.io/vee-validate/guide/rules.html) to see what is available*) <br>  <br> ╚ If (**type** = `html`) <br> • **html:**  `{String}`  <br> &nbsp;&nbsp; (*HTML elements will always work as if* **noSend**  *is set to `true`* for them.) <br>  <br> ╚ If (**type** = `dropzone`) <br> • **button:**  `{String}`  <br> • **options:**  `{String}`<br><br> ╚ If (**type** = `select`) <br> • **options:**  `{Array}` <br>  &nbsp;&nbsp; (*Array of objects with this format: `{text: "text", value: "value"}`*) <br><br> ╚ If (**type** = `number`) <br> • **step:**  `{Float}`  <br> • **min:**  `{Float}`
 
 ### Example

@@ -1,5 +1,34 @@
-@import "../../node_modules/bulma/sass/utilities/initial-variables.sass";
+.v-error { color: red; }
 
-.v-error {
-	color: $red;
+.mdi-for-button {
+	position: relative;
+	margin-left: 0px !important;
+	margin-right: 5px !important;
+
+	&:before {
+		font-size: 30px;
+		// position: absolute;
+		// top: 4px;
+		// left: 15px;
+	}
+}
+
+.control {
+	& + .icon {
+		height: calc(100% - 2px);
+		position: absolute;
+		padding-left: 20px;
+		padding-right: 20px;
+		right: 2px;
+		top: 1px;
+		cursor: pointer;
+		color: grey;
+		border-left: 1px lightgrey solid;
+
+		&:hover { color: red; }
+		&:active {
+			transform: translateX(1px);
+			.mdi:before { transform: translateY(1px); }
+		}
+	}
 }

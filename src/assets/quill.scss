@@ -1,0 +1,27 @@
+.field {
+	.ql-editor {
+		p, ol,  {
+			font-size: 12px;
+			line-height: 20px;
+		}
+		height: 200px;
+	}
+
+	.ql-toolbar {
+		padding: 0px;
+		background-color: lighten(lightgrey, 12%);
+
+		button, .ql-picker {
+			height: 40px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+
+			&, &:hover { transition: ease-out-in all 0.2s; }
+			&:hover { background-color: lighten(lightgrey, 5%); }
+		}
+
+		button { width: 33px; }
+
+		.ql-picker-label { border: none !important; outline: none !important; }
+	}
+}

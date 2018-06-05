@@ -6,24 +6,26 @@
 			v-quill="config"
 			v-bind:content="content"
 			v-on:change="$emit('input', $event.html)"
-			style="min-height:250px"
 			></div>
 		</div>
 </template>
 
 <style lang="css">
-@import '~/node_modules/quill/dist/quill.snow.css';
+@import '../../node_modules/quill/dist/quill.snow.css';
+</style>
+
+<style lang="scss">
+@import '../assets/quill.scss';
 </style>
 
 <script>
 import Vue from 'vue'
 
-if (process.browser) {
-	const VueQuillEditor = require('vue-quill-editor/dist/ssr')
-	Vue.use(VueQuillEditor)
-}
+const VueQuillEditor = require('vue-quill-editor/dist/ssr')
+Vue.use(VueQuillEditor)
 
 export default {
+	name: 'quill-editor',
 	model: {
 		prop: 'content',
 		event: 'input'

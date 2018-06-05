@@ -1,48 +1,60 @@
 {
   "name": "buefy-form-generator",
   "description": "A form generator component for VueJS, built on top of Buefy components and with Nuxt.js/SSR support",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "Kristian Barrese <kristian.webdeveloper@gmail.com>",
   "license": "MIT",
   "private": false,
-  "main": "dist/0.build.js",
+  "main": "dist/bfg.common.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "analyze": "webpack-bundle-analyzer ./src/main.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:component": "vue-cli-service build --target lib --name bfg ./src/components/buefy-form-generator.vue",
+    "build:subcomponents": "vue-cli-service build --target lib --name dropzone-wrap ./src/components/dropzone-wrap.vue --dest ./dropzone-wrap/ && vue-cli-service build --target lib --name quill-editor ./src/components/quill-editor.vue --dest ./quill-editor/",
+    "build:full": "yarn build:subcomponents && yarn build:component",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "awesome-phonenumber": "^2.2.5",
-    "buefy": "^0.6.5",
+    "buefy": "^0.6.6",
     "mdi": "^2.2.43",
-    "moment": "^2.22.1",
+    "moment": "^2.22.2",
+    "node-sass": "^4.9.0",
     "nuxt-dropzone": "^0.2.7",
-    "vee-validate": "^2.0.9",
-    "vue": "^2.5.11",
+    "sass-loader": "^7.0.2",
+    "vee-validate": "^2.1.0-beta.1",
+    "vue": "^2.5.16",
     "vue-quill-editor": "^3.0.6",
     "vue-scrollto": "^2.11.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-beta.15",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
+    "@vue/cli-service": "^3.0.0-beta.15",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ],
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
-    "cross-env": "^5.0.5",
-    "css-loader": "^0.28.7",
-    "file-loader": "^1.1.4",
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
-    "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-dev-server": "^2.9.1"
-  }
+  ]
 }

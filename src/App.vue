@@ -17,21 +17,14 @@
   </div>
 </template>
 
-<style lang="scss">
-@import "./assets/buefy-form-generator.scss";
-</style>
-
 <style lang="css">
-@import "~/node_modules/mdi/css/materialdesignicons.min.css";
-@import "~/node_modules/buefy/lib/buefy.min.css";
+@import "../node_modules/mdi/css/materialdesignicons.min.css";
+@import "../node_modules/buefy/lib/buefy.min.css";
 </style>
 
 <script>
 import Vue from 'vue'
 import Toast from './utils/buefy-toasts.js'
-
-import quillEditor from './components/quillEditor.vue'
-import dropzoneWrap from './components/dropzoneWrap.vue'
 
 import Datepicker from 'buefy/src/components/datepicker/Datepicker.vue'
 import Timepicker from 'buefy/src/components/timepicker/Timepicker.vue'
@@ -44,12 +37,9 @@ import Message from 'buefy/src/components/message/Message.vue'
 import Icon from 'buefy/src/components/icon/Icon.vue'
 import Loading from 'buefy/src/components/loading/Loading.vue'
 
-import VeeValidate, { Validator, ErrorComponent } from 'vee-validate'
+import VeeValidate, { ErrorComponent } from 'vee-validate'
 
 import VueScrollTo from 'vue-scrollto'
-
-Vue.component('quillEditor', quillEditor)
-Vue.component('dropzoneWrap', dropzoneWrap)
 
 Vue.component(Datepicker.name, Datepicker)
 Vue.component(Timepicker.name, Timepicker)
@@ -70,7 +60,9 @@ Vue.use(VueScrollTo)
 
 export default {
   name: 'app',
-  components: { 'buefyFormGenerator': () => import('./components/buefy-form-generator.vue') },
+  components: {
+    'buefyFormGenerator': () => (process.env.NODE_ENV === 'development') ? import('./components/buefy-form-generator.vue') : import('../dist/bfg.common.js')
+  },
   data () {
     return {
       schema: {},

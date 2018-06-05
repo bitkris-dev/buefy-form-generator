@@ -1,7 +1,7 @@
 <template>
 	<div class="columns is-multiline">
 		<template v-for="(input,key,index) in schema" v-if="(input.data.type === 'html' && input.data.html) || input.data.type !== 'html'">
-			<div class="column is-12" v-if="input.header">
+			<div class="column is-12" v-if="input.header" :key="key + '-header'">
 				<div>
 					<template v-if="index !== 0"><hr><br></template>
 					<h1 class="title is-5">
@@ -11,7 +11,7 @@
 				</div>
 			</div>
 
-			<div :class="input.appearance.layout">
+			<div :class="input.appearance.layout" :key="key + '-field'">
 				<div>
 					<b-field
 					:class="(input.appearance.classField || '') + ' field-' + input.data.type"
@@ -25,7 +25,7 @@
 								<a :href="input.data.linkTo" :target="input.data.targetTo">{{input.data.text}}</a>
 							</template>
 
-							<template v-else-if="inputTypes.indexOf(input.data.type) > -1">
+							<template v-else-if="BInputTypes.indexOf(input.data.type) > -1">
 								<b-input
 								:name="key"
 								:type="(input.data.type === 'phone') ? 'text' : input.data.type"
@@ -115,7 +115,7 @@
 							</template>
 
 							<template v-else-if="input.data.type === 'dropzone'">
-								<dropzoneWrap
+								<dropzone-wrap
 								:keyName="key"
 								:class="input.appearance.classInput || ''"
 								:value="input.data.value"
@@ -127,11 +127,11 @@
 							</template>
 
 							<template v-else-if="input.data.type === 'richtext'">
-								<quillEditor
+								<quill-editor
 								:ref="'quill-' + key"
 								:name="key"
 								:class="input.appearance.classInput || ''"
-								:config="input.data.options"
+								:config="parseQuillOptions(input.data.options)"
 								v-model="input.data.value"
 								@input="emitter($event, key, 'changed')"
 								/>
@@ -149,25 +149,7 @@
 </template>
 
 <style lang="scss">
-.control {
-	& + .icon {
-		height: calc(100% - 2px);
-		position: absolute;
-		padding-left: 20px;
-		padding-right: 20px;
-		right: 2px;
-		top: 1px;
-		cursor: pointer;
-		color: grey;
-		border-left: 1px lightgrey solid;
-
-		&:hover { color: red; }
-		&:active {
-			transform: translateX(1px);
-			.mdi:before { transform: translateY(1px); }
-		}
-	}
-}
+@import '../assets/buefy-form-generator.scss';
 </style>
 
 <script>
@@ -175,12 +157,16 @@ const PhoneNumber = require('awesome-phonenumber')
 
 export default {
 	name: 'buefyFormGenerator',
+	components: {
+		'quillEditor': (process.env.NODE_ENV === 'development') ? require('./quill-editor.vue').default : require('../../quill-editor/quill-editor.common.js'),
+		'dropzoneWrap': (process.env.NODE_ENV === 'development') ? require('./dropzone-wrap.vue').default : require('../../dropzone-wrap/dropzone-wrap.common.js')
+	},
 	data () {
 		return {
 			canUpload: {},
 			processing: true,
 			original_schema: JSON.parse(JSON.stringify(this.schema)),
-			inputTypes: ['text', 'phone', 'password', 'number', 'textarea']
+			BInputTypes: ['text', 'phone', 'password', 'number', 'textarea']
 		}
 	},
 	props: {
@@ -211,14 +197,19 @@ export default {
 	},
 	created () {
 		this.$validator.extend('phone', {
-			getMessage: field => this.$t('pages.account.settings.invalid_phone'),
-			validate: value => new PhoneNumber(value, this.$store.state.locale).isValid()
+			getMessage: field => 'This phone number is not valid',
+			validate: value => new PhoneNumber(value, 'en').isValid()
 		})
 	},
 	methods: {
 		saveToOriginalSchema (schema) {
 			// save only once
 			if (!Object.keys(this.original_schema).length) this.original_schema = JSON.parse(JSON.stringify(schema))
+		},
+		parseQuillOptions (opt) {
+			let options = (opt || {})
+			options.theme = 'snow'
+			return options
 		},
 		labelGen (type, sourceLabel, options) {
 			let label = null
@@ -236,20 +227,20 @@ export default {
 			let valType = (typeof e)
 			let inputName = valType === 'string' ? e : e.target.getAttribute('name')
 
-			setTimeout(a => { this.$validator.validate(inputName, this.schemaData[inputName]) }, 10)
+			setTimeout(() => { this.$validator.validate(inputName, this.schemaData[inputName]) }, 10)
 		},
 		validateAll () {
 			this.$validator.validateAll().then(res => {
 				this.$emit('validation', res)
 
 				if (!res) {
-					this.$nextTick(a => {
+					this.$nextTick(() => {
 						let errors = document.querySelectorAll('.v-error')
-						console.log([...errors].filter(v => { if (v.childNodes[0].innerHTML) return v }))
-						VueScrollTo.scrollTo(errors[0], 500, { offset: -200 })
+						// console.log([...errors].filter(v => { if (v.childNodes[0].innerHTML) return v }))
+						this.$scrollTo(errors[0], 500, { offset: -200 })
 					})
 				}
-			}).catch(e => console.log(e))
+			})
 		},
 		emitter (e, key, eventToEmit) {
 			if (this.schema[key].data.validate) if (this.original_schema[key].data.value || this.vErrors.has(key)) this.validateSingle(key)
@@ -257,7 +248,7 @@ export default {
 		}
 	},
 	watch: {
-		'schema' (newVal, oldVal) { this.saveToOriginalSchema(newVal) }
+		'schema' (newVal) { this.saveToOriginalSchema(newVal) }
 	}
 }
 </script>
