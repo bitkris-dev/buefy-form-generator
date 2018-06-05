@@ -10,14 +10,6 @@
 		</div>
 </template>
 
-<style lang="css">
-@import '../../node_modules/quill/dist/quill.snow.css';
-</style>
-
-<style lang="scss">
-@import '../assets/quill.scss';
-</style>
-
 <script>
 import Vue from 'vue'
 

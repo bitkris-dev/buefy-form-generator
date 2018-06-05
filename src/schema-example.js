@@ -67,6 +67,21 @@ export default {
 							acceptedFiles: '.jpg, .jpeg, .png'
 						}
 					}
+				},
+				image2: {
+					appearance: { label: 'Image2', layout: 'column is-6' },
+					data: {
+						value: DATA.image2 ? DATA.image2 : '',
+						type: 'dropzone',
+						button: 'Change image2',
+						options: {
+							maxFiles: 1,
+							url: '/',
+							uploadMultiple: false,
+							createImageThumbnails: true,
+							acceptedFiles: '.jpg, .jpeg, .png'
+						}
+					}
 				}
 			}
 		}

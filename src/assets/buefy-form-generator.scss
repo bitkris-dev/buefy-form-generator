@@ -1,9 +1,12 @@
+@import './dropzone.scss';
+@import './quill.scss';
+
 .v-error { color: red; }
 
 .mdi-for-button {
 	position: relative;
 	margin-left: 0px !important;
-	margin-right: 5px !important;
+	margin-right: 8px !important;
 
 	&:before {
 		font-size: 30px;
