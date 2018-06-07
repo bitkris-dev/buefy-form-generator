@@ -41,7 +41,7 @@
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
-								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
+								<b-icon v-if="input.data.cancelable" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'switch'">
@@ -96,7 +96,7 @@
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
-								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
+								<b-icon v-if="input.data.cancelable" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'time'">
@@ -111,7 +111,7 @@
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
-								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
+								<b-icon v-if="input.data.cancelable" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'dropzone'">
@@ -136,6 +136,14 @@
 								@input="emitter($event, key, 'changed')"
 								/>
 							</template>
+
+							<template v-else-if="input.data.type === 'submit'">
+								<button
+								class="button"
+								:class="input.appearance.classInput || ''"
+								@click="$emit('submit')"
+								>{{input.data.value}}</button>
+							</template>
 						</div>
 					</b-field>
 
@@ -147,6 +155,7 @@
 		</template>
 	</div>
 </template>
+
 
 <style lang="scss">
 @import '../assets/buefy-form-generator.scss';
@@ -197,7 +206,7 @@ export default {
 	},
 	created () {
 		this.$validator.extend('phone', {
-			getMessage: field => 'This phone number is not valid',
+			getMessage: field => field + ' is not a valid phone number',
 			validate: value => new PhoneNumber(value, 'en').isValid()
 		})
 	},
@@ -236,7 +245,6 @@ export default {
 				if (!res) {
 					this.$nextTick(() => {
 						let errors = document.querySelectorAll('.v-error')
-						// console.log([...errors].filter(v => { if (v.childNodes[0].innerHTML) return v }))
 						this.$scrollTo(errors[0], 500, { offset: -200 })
 					})
 				}

@@ -8,7 +8,7 @@ export default {
 				text: {
 					header: { icon: 'format-text', text: 'Texts' },
 					appearance: { label: 'Text', icon: 'format-text', layout: 'column is-6' },
-					data: { value: DATA.name || '', type: 'text', validate: 'required|min:3' }
+					data: { value: DATA.name || '', type: 'text', validate: 'required|min:3', cancelable: true }
 				},
 				textarea: {
 					appearance: { label: 'Textarea', layout: 'column is-12' },
@@ -82,6 +82,10 @@ export default {
 							acceptedFiles: '.jpg, .jpeg, .png'
 						}
 					}
+				},
+				submit: {
+					appearance: { label: '', layout: 'column is-6', classInput: 'is-info is-large' },
+					data: { value: 'SUBMIT', icon: 'magnify', type: 'submit' }
 				}
 			}
 		}
