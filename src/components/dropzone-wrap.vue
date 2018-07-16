@@ -1,17 +1,27 @@
 <template>
 	<div class="columns is-multiline" v-if="mounted">
-		<div class="column is-12-mobile is-12-tablet is-12-desktop" v-show="!canUpload" :class="canUpload ? 'is-4-widescreen' : 'is-12-widescreen'">
+		<div
+		v-show="!canUpload"
+		class="column is-12-mobile is-12-tablet is-12-desktop"
+		:class="canUpload ? 'is-4-widescreen' : 'is-12-widescreen'"
+		>
 			<div class="dropzone-previews" :class="keyName"></div>
 		</div>
 
-		<div class="column is-12-mobile is-12-tablet is-12-desktop" :class="canUpload ? 'is-12-widescreen' : 'is-8-widescreen'">
-			<dropzone v-show="canUpload" :id="keyName + 'Dropzone'" ref="dropzone"
+		<div
+		class="column is-12-mobile is-12-tablet is-12-desktop"
+		:class="canUpload ? 'is-12-widescreen' : 'is-8-widescreen'"
+		>
+			<dropzone
+			v-show="canUpload"
+			ref="dropzone"
+			:id="keyName + 'Dropzone'"
 			:options="optionMerge(keyName)"
+			:destroyDropzone="true"
 			@vdropzone-mounted="dzLoad(value, keyName)"
 			@vdropzone-success="dzSuccess($event, keyName)"
 			@vdropzone-error="dzError($event, keyName)"
 			@vdropzone-max-files-exceeded="dzMaxFiles($event, keyName)"
-			:destroyDropzone="true"
 			/>
 
 			<template v-if="!canUpload">
@@ -24,7 +34,12 @@
 				</div> -->
 			</template>
 
-			<div v-if="changedFile" @click="canceler()" class="button is-info" :class="canUpload ? '' : 'margin-left'">
+			<div
+			v-if="changedFile"
+			class="button is-info"
+			:class="canUpload ? '' : 'margin-left'"
+			@click="canceler()"
+			>
 				<b-icon icon="close-circle" class="margin-right-small mdi-for-button" /> Cancel
 			</div>
 		</div>
@@ -57,7 +72,6 @@ export default {
 	components: { Dropzone },
 	mounted () {
 		this.mounted = true
-		// console.log(this.$refs.dropzone.$el.click)
 	},
 	methods: {
 		clicker () { this.$refs.dropzone.$el.click() },
@@ -114,11 +128,12 @@ export default {
 		dzError (file, keyName) {
 			let ext = '.' + file.name.split('.').pop()
 			let acceptedExts = this.options.acceptedFiles.split(',')
-			let isAccepted = acceptedExts.indexOf(ext) >= 0
+			let isAccepted = (acceptedExts.indexOf(ext) >= 0)
 
 			let errorSpan = document.querySelector('.dropzone-previews.' + keyName + ' span[data-dz-errormessage]')
 
 			let dzErrorMsg = errorSpan ? errorSpan.innerHTML ? errorSpan.innerHTML : 'Error: File not valid' : 'Error: File not valid'
+
 			if (!isAccepted) Toast.open({ duration: 3000, message: dzErrorMsg, position: 'is-bottom', type: 'is-danger' })
 			this.$refs['dropzone'].removeFile(file)
 		},
