@@ -41,7 +41,7 @@
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
-								<b-icon v-if="input.data.cancelable" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
+								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'switch'">
@@ -91,12 +91,13 @@
 								:icon="input.appearance.icon"
 								:placeholder="input.data.placeholder || input.appearance.label || ''"
 								:disabled="input.data.disabled || false"
+								:date-formatter="dateFormatter"
 								v-model="input.data.value"
 								v-validate="input.data.validate || 'date_format:DD/MM/YYYY'"
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
-								<b-icon v-if="input.data.cancelable" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
+								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'time'">
@@ -111,7 +112,7 @@
 								:data-vv-as="input.appearance.label"
 								@input="emitter($event, key, 'changed')"
 								/>
-								<b-icon v-if="input.data.cancelable" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
+								<b-icon v-if="!input.data.disabled && !input.data.readonly" icon="close-circle" @click.native="input.data.value = null; emitter(null, key, 'changed')" />
 							</template>
 
 							<template v-else-if="input.data.type === 'dropzone'">
@@ -136,14 +137,6 @@
 								@input="emitter($event, key, 'changed')"
 								/>
 							</template>
-
-							<template v-else-if="input.data.type === 'submit'">
-								<button
-								class="button"
-								:class="input.appearance.classInput || ''"
-								@click="$emit('submit')"
-								>{{input.data.value}}</button>
-							</template>
 						</div>
 					</b-field>
 
@@ -156,13 +149,13 @@
 	</div>
 </template>
 
-
 <style lang="scss">
 @import '../assets/buefy-form-generator.scss';
 </style>
 
 <script>
 const PhoneNumber = require('awesome-phonenumber')
+const fecha = require('fecha')
 
 export default {
 	name: 'buefyFormGenerator',
@@ -195,7 +188,7 @@ export default {
 				if (!val.noSend) {
 					let assign = val.value
 					if (val.type === 'number') assign = parseFloat(assign)
-					if (val.type === 'date') { assign = assign ? require('moment').utc(assign).format('DD/MM/YYYY') : null }
+					if (val.type === 'date') { assign = assign ? fecha.format(assign, 'DD/MM/YYYY') : null }
 					if (val.type === 'switch') assign = (assign === 'Yes')
 					schemaData[key] = assign
 				}
@@ -206,7 +199,7 @@ export default {
 	},
 	created () {
 		this.$validator.extend('phone', {
-			getMessage: field => field + ' is not a valid phone number',
+			getMessage: field => 'This phone number is not valid',
 			validate: value => new PhoneNumber(value, 'en').isValid()
 		})
 	},
@@ -219,6 +212,9 @@ export default {
 			let options = (opt || {})
 			options.theme = 'snow'
 			return options
+		},
+		dateFormatter (date) {
+			return fecha.format(date, 'DD/MM/YYYY')
 		},
 		labelGen (type, sourceLabel, options) {
 			let label = null
@@ -245,6 +241,7 @@ export default {
 				if (!res) {
 					this.$nextTick(() => {
 						let errors = document.querySelectorAll('.v-error')
+						// console.log([...errors].filter(v => { if (v.childNodes[0].innerHTML) return v }))
 						this.$scrollTo(errors[0], 500, { offset: -200 })
 					})
 				}

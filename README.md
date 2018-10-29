@@ -3,7 +3,7 @@
 
 > A form generator component for VueJS, built on top of Buefy components and with Nuxt.js/SSR support
 
-# Install
+## Install
 
 • Add dependencies to your npm/yarn package manager:
 
@@ -95,7 +95,6 @@ Insert in template:
 <buefyFormGenerator
 ref="form"
 :schema="schema"
-@submit="submit()"
 @changed="changed($event)"
 @canceled="canceled($event)"
 @validation="($event) ? save() : error()"
@@ -105,7 +104,7 @@ ref="form"
 </template>
 ```
 
-# Schema
+## Schema
 
 This form generator parses a simple JSON schema to generate all what you need in a common form.
 Create a JSON object for each input you want to create as follows:
@@ -118,15 +117,15 @@ Create a JSON object for each input you want to create as follows:
 }
 ```
 
-## Configurable input options
+### Configurable input options
 
 | Name | Type | Default | Description
 |--|--|--|--|
 |`header`|`{Object}`|`undefined`|Adds a `<h1 class="title is-5"></h1>` before the input. <br><br> Supported keys: <br>• **icon**: `{String}` <br> &nbsp;&nbsp; *(icon class name from [MDI](hhttps://materialdesignicons.com/) )*  <br> • **text**: `{String}` |
 |`appearance`|`{Object}`|`undefined`|With this property, you can customize the input's look and layout. <br><br> Supported keys:<br> • **label**: `{String}`  <br> • **icon**: `{String}` <br> &nbsp;&nbsp; *(icon class name from [MDI](hhttps://materialdesignicons.com/) )* <br> • **layout**: `{String}`  <br>&nbsp;&nbsp; (add *here your CSS classes)* |
-|`data`|`{Object}`|`undefined`|Configure the data properties, types and validation rules. <br><br> Supported keys: <br> • **value**: `any type`  <br>  &nbsp;&nbsp; (*use this for editable values, otherwise set to* `null` *for empty forms*.) <br> • **type**: `{String}`  <br>  &nbsp;&nbsp; (*can be one of the following values:*  `text`, `textarea`, `richtext`, `number`, `password`, `checkbox`, `switch`, `select`, `phone`, `date`, `time`, `dropzone`, `html`, `link`, `submit`)<br> • **cancelable**: `{Boolean}`<br> • **disabled**: `{Boolean}`<br> • **noSend**: `{Boolean}`<br>  &nbsp;&nbsp; (*If you want to show an input excluding it from the values passed via the* `@changed` *event. Best to use it with* **disabled**: `true`.) <br> • **validate**: `{String}` <br>  &nbsp;&nbsp; (*Insert your vee-validate validation rules. [Click this link](https://baianat.github.io/vee-validate/guide/rules.html) to see what is available*) <br>  <br> ╚ If (**type** = `html`) <br> • **html:**  `{String}`  <br> &nbsp;&nbsp; (*HTML elements will always work as if* **noSend**  *is set to `true`* for them.) <br>  <br> ╚ If (**type** = `dropzone`) <br> • **button:**  `{String}`  <br> • **options:**  `{String}`<br><br> ╚ If (**type** = `select`) <br> • **options:**  `{Array}` <br>  &nbsp;&nbsp; (*Array of objects with this format: `{text: "text", value: "value"}`*) <br><br> ╚ If (**type** = `number`) <br> • **step:**  `{Float}`  <br> • **min:**  `{Float}`
+|`data`|`{Object}`|`undefined`|Configure the data properties, types and validation rules. <br><br> Supported keys: <br> • **value**: `any type`  <br>  &nbsp;&nbsp; (*use this for editable values, otherwise set to* `null` *for empty forms*.) <br> • **type**: `{String}`  <br>  &nbsp;&nbsp; (*can be one of the following values:*  `text`, `textarea`, `richtext`, `number`, `password`, `checkbox`, `switch`, `select`, `phone`, `date`, `time`, `dropzone`, `html`, `link`)<br> • **disabled**: `{Boolean}`<br> • **disabled**: `{Boolean}`<br> • **noSend**: `{Boolean}`<br>  &nbsp;&nbsp; (*If you want to show an input excluding it from the values passed via the* `@changed` *event. Best to use it with* **disabled**: `true`.) <br> • **validate**: `{String}` <br>  &nbsp;&nbsp; (*Insert your vee-validate validation rules. [Click this link](https://baianat.github.io/vee-validate/guide/rules.html) to see what is available*) <br>  <br> ╚ If (**type** = `html`) <br> • **html:**  `{String}`  <br> &nbsp;&nbsp; (*HTML elements will always work as if* **noSend**  *is set to `true`* for them.) <br>  <br> ╚ If (**type** = `dropzone`) <br> • **button:**  `{String}`  <br> • **options:**  `{String}`<br><br> ╚ If (**type** = `select`) <br> • **options:**  `{Array}` <br>  &nbsp;&nbsp; (*Array of objects with this format: `{text: "text", value: "value"}`*) <br><br> ╚ If (**type** = `number`) <br> • **step:**  `{Float}`  <br> • **min:**  `{Float}`
 
-## Example schema object
+### Example schema object
 
 ``` bash
 {
@@ -204,27 +203,11 @@ Create a JSON object for each input you want to create as follows:
             "acceptedFiles": ".jpg, .jpeg, .png"
          }
       }
-   },
-
-   # Submit
-   "submit": {
-      "appearance": { "label": "", "layout": "column is-6", "classInput": "is-info is-large" },
-      "data": { "value": "SUBMIT", "icon": "magnify", "type": "submit" }
    }
 }
 ```
 
-# Events
-
-
-| Name | Description
-|--|--|
-|`@submit`|Triggered when the a **submit** input element is clicked.|
-|`@changed`|Triggered when the input value changes. <br> `$event`: **{`value`: parsed value, `value_native`: not parsed original value, `name`: input name}**|
-|`@canceled`|Triggered when a cancel button is clicked. <br> `$event`: **{`value`: parsed value, `value_native`: not parsed original value, `name`: input name}**|
-|`@validation`|Returns a boolean based on the validation. <br> `$event`: is `true` if the validation is correct, `false` if there is any error.|
-
-# To contribute
+## To contribute
 
 ``` bash
 # install dependencies

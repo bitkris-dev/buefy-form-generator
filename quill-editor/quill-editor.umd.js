@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 var setPublicPath = __webpack_require__("HrLf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"/mnt/d/Git/Personal/buefy-form-generator/node_modules/.cache/vue-loader","cacheIdentifier":"b3fca2dc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/quill-editor.vue?vue&type=template&id=77610288
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"/home/starboost/Desktop/Git/Starboost/wineplan-frontend/node_modules/buefy-form-generator/node_modules/.cache/vue-loader","cacheIdentifier":"b3fca2dc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/quill-editor.vue?vue&type=template&id=77610288
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{directives:[{name:"quill",rawName:"v-quill",value:(_vm.config),expression:"config"}],ref:'quill' + _vm.name,staticClass:"quill-editor",attrs:{"name":_vm.name,"content":_vm.content},on:{"change":function($event){_vm.$emit('input', $event.html)}}})])}
 var staticRenderFns = []
 

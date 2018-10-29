@@ -9,7 +9,7 @@
       ref="form"
       v-if="schema"
       :schema="schema"
-      @submit="submit()"
+      @changed="changed($event)"
       @canceled="canceled($event)"
       @validation="$event ? save() : ''"
       />
@@ -74,8 +74,8 @@ export default {
     this.schema = SCHEMA.schema
 	},
   methods: {
-    submit () {
-      Toast.open({ duration: 3000, message: 'Form submitted!', position: 'is-bottom', type: 'is-success' })
+    changed (e) {
+      console.log(e)
     },
     canceled (e) {
       const message = e.name + ' canceled!'

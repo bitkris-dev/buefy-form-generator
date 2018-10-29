@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 var setPublicPath = __webpack_require__("HrLf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"/mnt/d/Git/Personal/buefy-form-generator/node_modules/.cache/vue-loader","cacheIdentifier":"b3fca2dc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/dropzone-wrap.vue?vue&type=template&id=e6fdb8c2
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"/home/starboost/Desktop/Git/Starboost/wineplan-frontend/node_modules/buefy-form-generator/node_modules/.cache/vue-loader","cacheIdentifier":"b3fca2dc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/dropzone-wrap.vue?vue&type=template&id=e6fdb8c2
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.mounted)?_c('div',{staticClass:"columns is-multiline"},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.canUpload),expression:"!canUpload"}],staticClass:"column is-12-mobile is-12-tablet is-12-desktop",class:_vm.canUpload ? 'is-4-widescreen' : 'is-12-widescreen'},[_c('div',{staticClass:"dropzone-previews",class:_vm.keyName})]),_c('div',{staticClass:"column is-12-mobile is-12-tablet is-12-desktop",class:_vm.canUpload ? 'is-12-widescreen' : 'is-8-widescreen'},[_c('dropzone',{directives:[{name:"show",rawName:"v-show",value:(_vm.canUpload),expression:"canUpload"}],ref:"dropzone",attrs:{"id":_vm.keyName + 'Dropzone',"options":_vm.optionMerge(_vm.keyName),"destroyDropzone":true},on:{"vdropzone-mounted":function($event){_vm.dzLoad(_vm.value, _vm.keyName)},"vdropzone-success":function($event){_vm.dzSuccess($event, _vm.keyName)},"vdropzone-error":function($event){_vm.dzError($event, _vm.keyName)},"vdropzone-max-files-exceeded":function($event){_vm.dzMaxFiles($event, _vm.keyName)}}}),(!_vm.canUpload)?[_c('div',{staticClass:"button is-warning",on:{"click":function($event){_vm.clicker()}}},[_c('b-icon',{staticClass:"margin-right-small mdi-for-button",attrs:{"icon":"reload"}}),_vm._v(" "+_vm._s(_vm.button || 'Change file')+"\n\t\t\t")],1)]:_vm._e(),(_vm.changedFile)?_c('div',{staticClass:"button is-info",class:_vm.canUpload ? '' : 'margin-left',on:{"click":function($event){_vm.canceler()}}},[_c('b-icon',{staticClass:"margin-right-small mdi-for-button",attrs:{"icon":"close-circle"}}),_vm._v(" Cancel\n\t\t")],1):_vm._e()],2)]):_vm._e()}
 var staticRenderFns = []
 
@@ -129,7 +129,7 @@ var nuxt_dropzone_default = /*#__PURE__*/__webpack_require__.n(nuxt_dropzone);
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("i7/w");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"/mnt/d/Git/Personal/buefy-form-generator/node_modules/.cache/vue-loader","cacheIdentifier":"b3fca2dc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/buefy/src/components/toast/Toast.vue?vue&type=template&id=7dec6b28
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"/home/starboost/Desktop/Git/Starboost/wineplan-frontend/node_modules/buefy-form-generator/node_modules/.cache/vue-loader","cacheIdentifier":"b3fca2dc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/buefy/src/components/toast/Toast.vue?vue&type=template&id=7dec6b28
 var Toastvue_type_template_id_7dec6b28_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"enter-active-class":_vm.transition.enter,"leave-active-class":_vm.transition.leave}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],staticClass:"toast",class:[_vm.type, _vm.position]},[_c('div',{domProps:{"innerHTML":_vm._s(_vm.message)}})])])}
 var Toastvue_type_template_id_7dec6b28_staticRenderFns = []
 
@@ -550,20 +550,21 @@ var component = normalizeComponent(
 
 
 /* harmony default export */ var buefy_toasts = ({
-  open: function open(params) {
-    var message;
-    if (typeof params === 'string') message = params;
-    var defaultParam = {
-      message: message
-    };
-    var propsData = Object.assign(defaultParam, params);
-    var ToastComponent = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.extend(Toast);
-    return new ToastComponent({
-      el: document.createElement('div'),
-      propsData: propsData
-    });
-  }
+	open (params) {
+		let message
+		if (typeof params === 'string') message = params
+
+		const defaultParam = { message }
+		const propsData = Object.assign(defaultParam, params)
+
+		const ToastComponent = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.extend(Toast)
+		return new ToastComponent({
+			el: document.createElement('div'),
+			propsData
+		})
+	}
 });
+
 // EXTERNAL MODULE: ./node_modules/lodash/startsWith.js
 var startsWith = __webpack_require__("Xdxp");
 var startsWith_default = /*#__PURE__*/__webpack_require__.n(startsWith);
@@ -5718,7 +5719,7 @@ NAME in FProto || __webpack_require__("nh4g") && dP(FProto, NAME, {
 /***/ "g3g5":
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.6' };
+var core = module.exports = { version: '2.5.7' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
