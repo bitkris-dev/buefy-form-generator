@@ -92,6 +92,8 @@
 								:placeholder="input.data.placeholder || input.appearance.label || ''"
 								:disabled="input.data.disabled || false"
 								:date-formatter="dateFormatter"
+								:month-names="locales.monthNames"
+								:day-names="locales.dayNames"
 								v-model="input.data.value"
 								v-validate="input.data.validate || 'date_format:DD/MM/YYYY'"
 								:data-vv-as="input.appearance.label"
@@ -157,6 +159,9 @@
 const PhoneNumber = require('awesome-phonenumber')
 const fecha = require('fecha')
 
+const defaultMonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const defaultDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
 export default {
 	name: 'buefyFormGenerator',
 	components: {
@@ -172,7 +177,21 @@ export default {
 		}
 	},
 	props: {
-		schema: { default: {} }
+		schema: { default: {} },
+		locales: {
+			type: Object,
+			default: () => {
+				return {
+					dateFormats: {
+						input: 'DD/MM/YYYY',
+						output: 'DD/MM/YYYY'
+					},
+					invalidPhone: 'This is not a valid phone number',
+					monthNames: defaultMonthNames,
+					dayNames: defaultDayNames
+				}
+			}
+		}
 	},
 	computed: {
 		schemaData () {
@@ -188,7 +207,7 @@ export default {
 				if (!val.noSend) {
 					let assign = val.value
 					if (val.type === 'number') assign = parseFloat(assign)
-					if (val.type === 'date') { assign = assign ? fecha.format(assign, 'DD/MM/YYYY') : null }
+					if (val.type === 'date') { assign = assign ? fecha.format(assign, this.locales.dateFormats.output) : null }
 					if (val.type === 'switch') assign = (assign === 'Yes')
 					schemaData[key] = assign
 				}
@@ -199,7 +218,7 @@ export default {
 	},
 	created () {
 		this.$validator.extend('phone', {
-			getMessage: field => 'This phone number is not valid',
+			getMessage: field => this.locales.invalidPhone,
 			validate: value => new PhoneNumber(value, 'en').isValid()
 		})
 	},
@@ -214,7 +233,7 @@ export default {
 			return options
 		},
 		dateFormatter (date) {
-			return fecha.format(date, 'DD/MM/YYYY')
+			return fecha.format(date, this.locales.dateFormats.input)
 		},
 		labelGen (type, sourceLabel, options) {
 			let label = null

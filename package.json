@@ -1,7 +1,7 @@
 {
   "name": "buefy-form-generator",
   "description": "A form generator component for VueJS, built on top of Buefy components and with Nuxt.js/SSR support",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "author": "Kristian Barrese <kristian.webdeveloper@gmail.com>",
   "license": "MIT",
   "private": false,
@@ -17,6 +17,7 @@
   "dependencies": {
     "awesome-phonenumber": "^2.2.5",
     "buefy": "^0.6.6",
+    "fecha": "^2.3.3",
     "lodash": "^4.17.10",
     "mdi": "^2.2.43",
     "moment": "^2.22.2",
