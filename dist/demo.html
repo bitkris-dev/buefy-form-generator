@@ -1,0 +1,16 @@
+<title>bfg demo</title>
+<script src="https://unpkg.com/vue"></script>
+<script src="./bfg.umd.js"></script>
+<link rel="stylesheet" href="./bfg.css">
+
+<div id="app">
+  <demo></demo>
+</div>
+
+<script>
+new Vue({
+  components: {
+    demo: bfg
+  }
+}).$mount('#app')
+</script>
